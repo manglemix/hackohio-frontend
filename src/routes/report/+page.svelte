@@ -4,7 +4,7 @@
 </header>
 <main>
     <div style="margin-top: 4rem;" />
-    <form action="TODO" method="POST">
+    <form action="http://127.0.0.1:8000/upload-image" method="POST">
         <label for="photo">Upload photo of trash</label>
         <input id="photo" name="photo" type="file" accept=".png,.jpg"/>
         <button type="submit">Upload</button>
