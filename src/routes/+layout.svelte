@@ -4,7 +4,10 @@
 <nav>
     <div class="nav-content">
         <div class="left-navbar">
-            <a href="/"><strong>DeTrash</strong></a>
+            <a href="/">
+                <img src="/logo.png" height=30px alt="Recycling Bin"/>
+                <strong>DeTrash</strong>
+            </a>
         </div>
         <div class="right-navbar">
             <a href="/report">Report</a>
@@ -71,6 +74,7 @@
     }
 
     nav {
+        min-width: 392px;
         font-size: 1.25rem;
         background-color: #ddd;
         box-shadow: 0px 0px 5px gray;
@@ -87,9 +91,14 @@
         justify-content: space-between;
         align-self: center;
         padding: 0.7rem;
+        align-items: center;
     }
 
-    nav .nav-content .right-navbar a {
+    nav .nav-content .left-navbar strong {
+        font-size: 1.7rem;
+    }
+
+    nav .nav-content .right-navbar a + a{
         margin-left: 20px;
     }
 
@@ -98,12 +107,8 @@
         text-decoration: none;
     }
 
-    nav a:active {
-        color: black;
-    }
-
     nav a:hover {
-        text-decoration: underline;
+        color: #333333;
     }
     :global(h1) {
         align-self: center;
@@ -120,6 +125,7 @@
     }
     :global(form label) {
         font-weight: bold;
+        font-size: 1.1rem;
     }
     :global(form button) {
         width: 100px;

@@ -16,7 +16,7 @@
         background-color: lightgray;
         border-radius: 1rem;
         padding: 1rem;
-        border: 2px dashed gray;
+        border: 3px dashed #444444;
     }
     h1 {
         font-size: 3rem;
