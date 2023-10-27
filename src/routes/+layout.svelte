@@ -1,11 +1,15 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
 
+<script>
+	import logo from '$lib/assets/logo.png';
+</script>
+
 <nav>
     <div class="nav-content">
         <div class="left-navbar">
             <a href="/">
-                <img src="/logo.png" height=30px alt="Recycling Bin"/>
+                <img src={logo} height=30px alt="Recycling Bin"/>
                 <strong>DeTrash</strong>
             </a>
         </div>

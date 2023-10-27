@@ -1,9 +1,15 @@
+<script>
+	import landscape from '$lib/assets/landscape.jpg';
+</script>
+
 <header>
     <h1>Trash is not the future</h1>
     <h2>By collecting data from thousands of volunteers about litter in their area, <em>we</em> could change our future</h2>
 </header>
+<img src={landscape} alt="Landscape of a river in a forest">
+<p style="text-align: right; font-size: 0.8rem; margin-top: 0.3rem; font-style: italic; color: #555555">Photo by Najman Husaini</p>
 <main>
-    <div style="margin-top: 5rem;" />
+    <div style="margin-top: 3rem;" />
     <h3>What do I do?</h3>
     <p>
         Any time you see trash, report it through this website on this <a href="/report" title="This is the page where you report littering">page</a>.
@@ -28,8 +34,15 @@
         font-size: 2rem;
         font-weight: bold;
         margin-bottom: 0.6rem;
-        /* align-self: center; */
-        /* margin-top: 1rem; */
-        /* text-align: center; */
+    }
+    img {
+        width: 100vw;
+        height: 20rem;
+        align-self: center;
+        object-fit: cover;
+        left: 0px;
+        z-index: -1;
+        object-position: 0% 60%;
+        margin-top: 2rem;
     }
 </style>
