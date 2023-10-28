@@ -1,6 +1,3 @@
-<!DOCTYPE html>
-<meta charset="utf-8">
-
 <script>
 	import logo from '$lib/assets/logo.png';
 </script>
@@ -102,7 +99,7 @@
         font-size: 1.7rem;
     }
 
-    nav .nav-content .right-navbar a + a{
+    nav .nav-content .right-navbar a + a {
         margin-left: 20px;
     }
 
