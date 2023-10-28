@@ -25,6 +25,7 @@ export async function load({  }) {
         markers.push({
             lat: Number(location[0]),
             lng: Number(location[1]),
+            instances: Number(item["instances"]["N"] ?? "1"),
             supercategory: item["supercategory"]["S"] ?? ""
         })
     }

@@ -1,5 +1,5 @@
 <script lang=ts>
-    import { GoogleMap, GoogleMapMarker } from '@beyonk/svelte-googlemaps';
+    import GoogleAdvancedMap from '$lib/GoogleAdvancedMap.svelte';
     export let data;
 
     let headerHeight = 0;
@@ -11,12 +11,8 @@
 </header>
 <main>
     <div id="mapContainer" style="--top: {100 + headerHeight}px">
-        <GoogleMap apiKey="AIzaSyCHqqqAVFFgsbIc7OKE2FCw8Enrfq5IMnk" center = {{lat: 40.4188611, lng: -82.8485833}}>
-            {#each data.markers as marker}
-                {marker}
-                <GoogleMapMarker lat={marker.lat} lng={marker.lng} icon="https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png"/>
-            {/each}
-        </GoogleMap>
+        <p>Click on a marker to see how much trash was found</p>
+        <GoogleAdvancedMap lat={40.4188611} lng={-82.8485833} markers={data.markers} />
     </div>
 </main>
 
@@ -46,5 +42,8 @@
         display: flex;
         flex-direction: column;
         height: 100%;
+    }
+    p {
+        text-align: center;
     }
 </style>
