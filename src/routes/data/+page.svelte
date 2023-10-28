@@ -1,21 +1,5 @@
 <script lang=ts>
-    import { browser } from "$app/environment";
-    import { Loader } from "@googlemaps/js-api-loader"
-    if (browser) {
-        const loader = new Loader({
-            apiKey: "YOUR_API_KEY",
-            version: "weekly",
-        });
-
-        loader.importLibrary("core").then(async () => {
-        const { Map } = await google.maps.importLibrary("maps") as google.maps.MapsLibrary;
-        map = new Map(document.getElementById("map") as HTMLElement, {
-            center: { lat: -34.397, lng: 150.644 },
-            zoom: 8,
-        });
-        });
-    }
-    
+    import { GoogleMap } from '@beyonk/svelte-googlemaps';
 </script>
 
 <header>
@@ -23,8 +7,11 @@
     <h2>We've got you covered!</h2>
 </header>
 <main>
-    <div style="margin-top: 4rem;" />
-    <h3>There will be a heatmap here</h3>
+    <!-- <div style="margin-top: 4rem;" /> -->
+    
+    <div id="mapContainer">
+        <GoogleMap apiKey="AIzaSyCHqqqAVFFgsbIc7OKE2FCw8Enrfq5IMnk" center = {{lat: 40.4188611, lng: -82.8485833}}/>
+    </div>
 </main>
 
 <style>
@@ -37,5 +24,21 @@
         font-size: 1.5rem;
         font-weight: normal;
         margin-top: 0.5rem;
+    }
+    #mapContainer {
+        position: fixed;
+        top: 13rem;
+        width: min(50rem, 100% - 3rem);
+        bottom: 10rem;
+    }
+    header {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+    }
+    main {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
     }
 </style>
