@@ -1,4 +1,4 @@
-import { base64ToBytes, bytesToBase64 } from '$lib/base64';
+import { bytesToBase64 } from '$lib/base64';
 
 /** @type {import('./$types').Actions} */
 export const actions = {

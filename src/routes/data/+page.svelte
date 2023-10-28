@@ -1,5 +1,6 @@
 <script lang=ts>
-    import { GoogleMap } from '@beyonk/svelte-googlemaps';
+    import { GoogleMap, GoogleMapMarker } from '@beyonk/svelte-googlemaps';
+    export let data;
 </script>
 
 <header>
@@ -7,10 +8,14 @@
     <h2>We've got you covered!</h2>
 </header>
 <main>
-    <!-- <div style="margin-top: 4rem;" /> -->
-    
     <div id="mapContainer">
-        <GoogleMap apiKey="AIzaSyCHqqqAVFFgsbIc7OKE2FCw8Enrfq5IMnk" center = {{lat: 40.4188611, lng: -82.8485833}}/>
+        <GoogleMap apiKey="AIzaSyCHqqqAVFFgsbIc7OKE2FCw8Enrfq5IMnk" center = {{lat: 40.4188611, lng: -82.8485833}}>
+            {#each data.markers as marker}
+                {marker}
+                <GoogleMapMarker lat={marker.lat} lng={marker.lng} icon="https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png"/>
+            {/each}
+        </GoogleMap>
+        
     </div>
 </main>
 
