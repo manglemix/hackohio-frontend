@@ -10,9 +10,8 @@
 <p style="text-align: right; font-size: 0.8rem; margin-top: 0.3rem; font-style: italic; color: #555555">Photo by Najman Husaini</p>
 <main>
     <div style="margin-top: 3rem;" />
-    <h3>What do I do?</h3>
+    <h3>See any trash? Report it <a href="/report" title="This is the page where you report littering">here!</a></h3>
     <p>
-        Any time you see trash, report it through this website on this <a href="/report" title="This is the page where you report littering">page</a>.
         An AI model will identify pieces of trash in the image and provide you information on what you can do. Don't have the time to clean up trash?
         Don't worry! This information will be added to a database that is publicly available. Cleanup crews of all sizes can use this data to better
         plan their cleanup days to be more efficient <em>and</em> effective!

@@ -28,6 +28,5 @@ export async function load({  }) {
             supercategory: item["supercategory"]["S"] ?? ""
         })
     }
-    console.log(markers);
     return { markers };
 }
