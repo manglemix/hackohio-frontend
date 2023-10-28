@@ -23,7 +23,7 @@
 {#if form}
     <header transition:fade={fadeParams}>
         <h1>Here is what we found</h1>
-        <h2>Send us a photo and we'll handle the rest!</h2>
+        <h2>Click on a box for instructions</h2>
     </header>
     <main transition:fade={fadeParams}>
         <div style="margin-top: 3rem;" />
@@ -58,9 +58,12 @@
         
         {#if selectedTrash != null}
             <div style="margin-top: 1.5rem;" />
-            <h3 transition:fade={fadeParams}>{form.items[selectedTrash].name}</h3>
-            <p transition:fade={fadeParams}>{form.items[selectedTrash].instructions}</p>
+            <div class="instructions">
+                <h3 transition:fade={fadeParams}>{form.items[selectedTrash].name}</h3>
+                <p transition:fade={fadeParams}>{form.items[selectedTrash].instructions}</p>
+            </div>
         {/if}
+
     </main>
 {:else if loading}
 <div class="fixed">
@@ -81,6 +84,7 @@
 
             return async ({ update }) => {
                 await update();
+                loading = false;
             };
         }}>
             <label for="photo">Upload photo of trash</label>
@@ -127,5 +131,13 @@
     @keyframes spinner {
         0% { transform: rotate(0deg); }
         100% { transform: rotate(360deg); }
+    }
+    .instructions {
+        position: sticky;
+        bottom: 0.8rem;
+        background-color: lightgray;
+        padding: 0.5rem;
+        border-radius: 0.8rem;
+        border: 1px solid gray;
     }
 </style>
