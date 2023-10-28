@@ -6,7 +6,7 @@
     <img src="https://hack.osu.edu/2023/images/Hack11_logo.svg" alt="Hack OHI/O 11">
     <div style="margin-top: 2rem;" />
     <p>
-        &emsp;&emsp;We are a team of three participating in the <b>Hack OHI/O 11 Hackathon</b>.
+        &emsp;&emsp;We are a team of three participating in the <strong>Hack OHI/O 11 Hackathon</strong>.
         Our main goal is to improve the sustainability of our society one step at a time.
         The specific way we decided to contribute was by tackling the ever present issue of
         <em>littering</em>.
@@ -17,7 +17,16 @@
         of change does not come easy, and always requires reliable evidence to make a case. This
         is where we come in!
         <br><br>
-        &emsp;&emsp;
+        <strong>&emsp;&emsp;ReTrash</strong> allows us to collect data from thousands of people regarding the
+        locations at which littering occurred. Using AI models, we can even discern what kind of
+        trash was littered, and how much! This allows us to generate a heatmap (visible
+        <a href="/data" title="Data visualization page">here</a>), which anyone can refer to better
+        plan how to organize cleanup events.
+        <br><br>
+        &emsp;&emsp;But that's not all! You, the humble user, can still make a difference! Most people
+        don't realize how involved recycling is and how many rules have to be taken into consideration.
+        When you report littering, you will be given detailed information on how you can dispose of each
+        piece of trash while complying with local recycling laws!
     </p>
 </main>
 
