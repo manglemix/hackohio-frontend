@@ -1,5 +1,5 @@
 <script>
-	import landscape from '$lib/assets/landscape.jpg';
+	import landscape from '$lib/assets/landscape.webp';
 </script>
 
 <header>

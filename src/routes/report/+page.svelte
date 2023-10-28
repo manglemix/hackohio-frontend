@@ -1,25 +1,71 @@
-<script>
+<script lang=ts>
 	import { fade } from 'svelte/transition';
 	import { enhance } from '$app/forms';
 
-	/** @type {import('./$types').ActionData} */
 	export let form;
     let loading = false;
-    let loaded = false;
+    let imgLoaded = false;
+    let selectedTrash: number | null = null;
 
+    // function blobToBase64Async(blob: Blob) {
+    //     var reader = new FileReader();
+    //     reader.readAsDataURL(blob); 
+    //     reader.onload = e => {
+    //         photoB64 = e.target?.result as string ?? "";                
+    //         console.log(photoB64);
+    //     }
+    // }
+
+    let taggedImg;
     const fadeParams = { duration: 300 };
 </script>
 
-{#if loading}
+{#if form}
+    <header transition:fade={fadeParams}>
+        <h1>Here is what we found</h1>
+        <h2>Send us a photo and we'll handle the rest!</h2>
+    </header>
+    <main transition:fade={fadeParams}>
+        <div style="margin-top: 3rem;" />
+        <!-- svelte-ignore a11y-img-redundant-alt -->
+        <img
+            src={"data:image/jpg;base64," + form.photo}
+            width=100%
+            alt="The same photo that you sent but with the trash highlighted"
+            bind:this={taggedImg}
+            on:load={() => imgLoaded = true}
+            on:resize={() => imgLoaded = true}
+        >
+        
+        {#if taggedImg && imgLoaded}
+            {#each form.items as item, i}
+                <!-- svelte-ignore a11y-no-static-element-interactions -->
+                <div
+                    style="
+                    width: {(item.bbox[2] - item.bbox[0]) * taggedImg.width}px;
+                    height: {(item.bbox[3] - item.bbox[1]) * taggedImg.height}px;
+                    background: red;
+                    opacity: 0.3;
+                    left: {item.bbox[0] * taggedImg.width + taggedImg.offsetLeft}px;
+                    top: {item.bbox[1] * taggedImg.height + taggedImg.offsetTop}px;
+                    position: absolute;
+                    "
+                    on:click={() => selectedTrash = i}
+                    on:keydown={() => selectedTrash = i}
+                />
+            {/each}
+        {/if}
+        
+        {#if selectedTrash != null}
+            <div style="margin-top: 1.5rem;" />
+            <h3 transition:fade={fadeParams}>{form.items[selectedTrash].name}</h3>
+            <p transition:fade={fadeParams}>{form.items[selectedTrash].instructions}</p>
+        {/if}
+    </main>
+{:else if loading}
 <div class="fixed">
     <main transition:fade={fadeParams}>
         <div class="loader" />
-    </main>
-</div>
-{:else if loaded}
-<div class="fixed">
-    <main transition:fade={fadeParams}>
-        {form}
     </main>
 </div>
 {:else}
@@ -35,12 +81,10 @@
 
             return async ({ update }) => {
                 await update();
-                loading = false;
-                loaded = true
             };
         }}>
             <label for="photo">Upload photo of trash</label>
-            <input id="photo" name="photo" type="file" accept=".png,.jpg" required />
+            <input id="photo" name="photo" type="file" accept=".jpg" required />
             <button type="submit">Upload</button>
         </form>
     </main>
