@@ -21,7 +21,7 @@
         locations at which littering occurred. Using AI models, we can even discern what kind of
         trash was littered, and how much! This allows us to generate a heatmap (visible
         <a href="/data" title="Data visualization page">here</a>), which anyone can refer to better
-        plan how to organize cleanup events.
+        plan how to organize cleanup operations.
         <br><br>
         &emsp;&emsp;But that's not all! You, the humble user, can still make a difference! Most people
         don't realize how involved recycling is and how many rules have to be taken into consideration.
