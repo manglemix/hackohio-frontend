@@ -31,10 +31,10 @@
             for (const markerData of markers) {
                 if (markerData.supercategory !== supercategory && supercategory !== "all")
                     continue;
-                    heatMapData.push({
-                        location: new google.maps.LatLng(markerData.lat, markerData.lng),
-                        weight: markerData.instances
-                    });
+                heatMapData.push({
+                    location: new google.maps.LatLng(markerData.lat, markerData.lng),
+                    weight: markerData.instances
+                });
             }
             var heatmap = new HeatmapLayer({
                 data: heatMapData

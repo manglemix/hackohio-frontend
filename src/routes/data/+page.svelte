@@ -24,9 +24,19 @@
             <label for="allTrash">All Trash</label>
             <input type="radio" name="trashType" id="allTrash" on:click={() => goto("/refreshData")} checked={supercategory==="all"}>
             <label for="plasticTrash">Plastic Trash</label>
-            <input type="radio" name="trashType" id="plasticTrash" on:click={() => goto("/refreshData?trashType=plastic", { invalidateAll: true })} checked={supercategory==="plastic"}>
+            <input type="radio" name="trashType" id="plasticTrash" on:click={() => goto("/refreshData?trashType=plastic")} checked={supercategory==="plastic"}>
+            <label for="paperTrash">Paper Trash</label>
+            <input type="radio" name="trashType" id="paperTrash" on:click={() => goto("/refreshData?trashType=paper")} checked={supercategory==="paper"}>
+            <label for="glassTrash">Glass Trash</label>
+            <input type="radio" name="trashType" id="glassTrash" on:click={() => goto("/refreshData?trashType=glass")} checked={supercategory==="glass"}>
+            <label for="organicTrash">Organic Trash</label>
+            <input type="radio" name="trashType" id="organicTrash" on:click={() => goto("/refreshData?trashType=organic")} checked={supercategory==="organic"}>
             <label for="metalTrash">Metal Trash</label>
-            <input type="radio" name="trashType" id="metalTrash" on:click={() => goto("/refreshData?trashType=metal", { invalidateAll: true })} checked={supercategory==="metal"}>
+            <input type="radio" name="trashType" id="metalTrash" on:click={() => goto("/refreshData?trashType=metal")} checked={supercategory==="metal"}>
+            <label for="nonRecycTrash">Non-Recyclable Trash</label>
+            <input type="radio" name="trashType" id="nonRecycTrash" on:click={() => goto("/refreshData?trashType=non-recyclable")} checked={supercategory==="non-recyclable"}>
+            <label for="miscTrash">Misc Trash</label>
+            <input type="radio" name="trashType" id="miscTrash" on:click={() => goto("/refreshData?trashType=misc")} checked={supercategory==="misc"}>
         </form>
         <GoogleAdvancedMap lat={40.4188611} lng={-82.8485833} markers={data.markers} supercategory={supercategory} />
     </div>
@@ -52,10 +62,14 @@
     #mapContainer form {
         display: flex;
         flex-direction: row;
-        gap: 1rem;
+        flex-wrap: wrap;
         justify-content: center;
         margin-top: 0.4rem;
         margin-bottom: 0.6rem;
+        gap: 0.3rem 0.2rem;
+    }
+    #mapContainer form input + label {
+        margin-left: 1rem;
     }
     header {
         display: flex;
