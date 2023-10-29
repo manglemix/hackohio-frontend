@@ -26,8 +26,7 @@
 
 <footer>
     <div>
-        <p>This website was made for the HackOHI/O 11 hackathon. If you think that this is a great idea, please let us know!</p>
-        <a href="mailto:najman.husaini@utah.edu">najman.husaini@utah.edu</a>
+        <p>This website was made for the HackOHI/O 11 hackathon. If you think that this is a great idea, <a href="/about">please let us know!</a></p>
     </div>
 </footer>
 
