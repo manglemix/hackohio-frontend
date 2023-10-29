@@ -188,7 +188,7 @@
         height: var(--height);
         background-color: red;
         opacity: 0.3;
-        left: calc(var(--left) + (100vw - min(50rem, 100vw - 3rem)) / 2);
+        left: calc(var(--left) + (100vw - min(51rem, 100vw - 3rem)) / 2);
         top: calc(var(--top) + 3.75rem);
         position: absolute;
         -webkit-appearance: none;
