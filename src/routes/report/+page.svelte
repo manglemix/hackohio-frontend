@@ -103,7 +103,7 @@
         <form method="POST" enctype="multipart/form-data" use:enhance={() => {
             loading = true;
             selectedTrash = null;
-            geolocation = "lmao";
+            geolocation = "";
 
             return async ({ update }) => {
                 await update();
