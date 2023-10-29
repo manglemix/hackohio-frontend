@@ -22,9 +22,18 @@
         
         if (lat === null || lng === null) {
             if (navigator?.geolocation) {
-                navigator.geolocation.getCurrentPosition((position) => {
-                    lat = position.coords.latitude;
-                    lng = position.coords.longitude;
+                navigator.permissions.query({ name: "geolocation" }).then((result) => {
+                    if (result.state === "granted" || result.state === "prompt") {
+                        navigator.geolocation.getCurrentPosition((position) => {
+                            lat = position.coords.latitude;
+                            lng = position.coords.longitude;
+                        });
+                    } else {
+                        // Ohio Coordinates
+                        lat = 40.4188611;
+                        lng = -82.8485833;
+                    }
+                    // Don't do anything if the permission was denied.
                 });
             } else {
                 // Ohio Coordinates
