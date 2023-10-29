@@ -48,7 +48,7 @@
     .page {
         width: min(50rem, 100% - 3rem);
         align-self: center;
-        min-height: calc(100vh - 12rem);
+        min-height: calc(100vh - 10rem);
         display: flex;
         flex-direction: column;
     }
@@ -58,7 +58,7 @@
         margin-top: 2rem;
         display: flex;
         flex-direction: column;
-        padding-bottom: 2rem;
+        /* padding-bottom: 2rem; */
         padding-top: 1rem;
     }
 

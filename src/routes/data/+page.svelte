@@ -6,10 +6,32 @@
 
     let headerHeight = 0;
     let supercategory: string;
+    let lat: number | null = null;
+    let lng: number | null = null;
 
     if (browser) {
         const urlParams = new URLSearchParams(window.location.search);
-        supercategory=urlParams.get("trashType") ?? "all";
+        supercategory = urlParams.get("trashType") ?? "all";
+        let tmpLat = urlParams.get("lat");
+        let tmpLng = urlParams.get("lng");
+
+        if (tmpLat)
+            lat = Number(tmpLat);
+        if (tmpLng)
+            lng = Number(tmpLng);
+        
+        if (lat === null || lng === null) {
+            if (navigator?.geolocation) {
+                navigator.geolocation.getCurrentPosition((position) => {
+                    lat = position.coords.latitude;
+                    lng = position.coords.longitude;
+                });
+            } else {
+                // Ohio Coordinates
+                lat = 40.4188611;
+                lng = -82.8485833;
+            }
+        }
     }
 </script>
 
@@ -17,30 +39,32 @@
     <h1>Want to find patterns in littering?</h1>
     <h2>We've got you covered!</h2>
 </header>
+{#if lat && lng}
 <main>
     <div id="mapContainer" style="--top: {100 + headerHeight}px">
-        <p>Change the type of trash that will be visible</p>
+        <!-- <p>Change the type of trash that will be visible</p> -->
         <form>
             <label for="allTrash">All Trash</label>
-            <input type="radio" name="trashType" id="allTrash" on:click={() => goto("/refreshData")} checked={supercategory==="all"}>
+            <input type="radio" name="trashType" id="allTrash" on:click={() => goto(`/refreshData?lat=${lat}&lng=${lng}`)} checked={supercategory==="all"}>
             <label for="plasticTrash">Plastic Trash</label>
-            <input type="radio" name="trashType" id="plasticTrash" on:click={() => goto("/refreshData?trashType=plastic")} checked={supercategory==="plastic"}>
+            <input type="radio" name="trashType" id="plasticTrash" on:click={() => goto(`/refreshData?trashType=plastic&lat=${lat}&lng=${lng}`)} checked={supercategory==="plastic"}>
             <label for="paperTrash">Paper Trash</label>
-            <input type="radio" name="trashType" id="paperTrash" on:click={() => goto("/refreshData?trashType=paper")} checked={supercategory==="paper"}>
+            <input type="radio" name="trashType" id="paperTrash" on:click={() => goto(`/refreshData?trashType=paper&lat=${lat}&lng=${lng}`)} checked={supercategory==="paper"}>
             <label for="glassTrash">Glass Trash</label>
-            <input type="radio" name="trashType" id="glassTrash" on:click={() => goto("/refreshData?trashType=glass")} checked={supercategory==="glass"}>
+            <input type="radio" name="trashType" id="glassTrash" on:click={() => goto(`/refreshData?trashType=glass&lat=${lat}&lng=${lng}`)} checked={supercategory==="glass"}>
             <label for="organicTrash">Organic Trash</label>
-            <input type="radio" name="trashType" id="organicTrash" on:click={() => goto("/refreshData?trashType=organic")} checked={supercategory==="organic"}>
+            <input type="radio" name="trashType" id="organicTrash" on:click={() => goto(`/refreshData?trashType=organic&lat=${lat}&lng=${lng}`)} checked={supercategory==="organic"}>
             <label for="metalTrash">Metal Trash</label>
-            <input type="radio" name="trashType" id="metalTrash" on:click={() => goto("/refreshData?trashType=metal")} checked={supercategory==="metal"}>
+            <input type="radio" name="trashType" id="metalTrash" on:click={() => goto(`/refreshData?trashType=metal&lat=${lat}&lng=${lng}`)} checked={supercategory==="metal"}>
             <label for="nonRecycTrash">Non-Recyclable Trash</label>
-            <input type="radio" name="trashType" id="nonRecycTrash" on:click={() => goto("/refreshData?trashType=non-recyclable")} checked={supercategory==="non-recyclable"}>
+            <input type="radio" name="trashType" id="nonRecycTrash" on:click={() => goto(`/refreshData?trashType=non-recyclable&lat=${lat}&lng=${lng}`)} checked={supercategory==="non-recyclable"}>
             <label for="miscTrash">Misc Trash</label>
-            <input type="radio" name="trashType" id="miscTrash" on:click={() => goto("/refreshData?trashType=misc")} checked={supercategory==="misc"}>
+            <input type="radio" name="trashType" id="miscTrash" on:click={() => goto(`/refreshData?trashType=misc&lat=${lat}&lng=${lng}`)} checked={supercategory==="misc"}>
         </form>
-        <GoogleAdvancedMap lat={40.4188611} lng={-82.8485833} markers={data.markers} supercategory={supercategory} />
+        <GoogleAdvancedMap lat={lat} lng={lng} markers={data.markers} supercategory={supercategory} />
     </div>
 </main>
+{/if}
 
 <style>
     h1 {

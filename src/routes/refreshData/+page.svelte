@@ -5,8 +5,11 @@
     if (browser) {
         const urlParams = new URLSearchParams(window.location.search);
         const trashType = urlParams.get("trashType");
-        if (trashType) {
-            goto(`/data?trashType=${trashType}`);
+        const lat = urlParams.get("lat");
+        const lng = urlParams.get("lng");
+
+        if (trashType && lat && lng) {
+            goto(`/data?trashType=${trashType}&lat=${lat}&lng=${lng}`);
         } else {
             goto("/data");
         }
