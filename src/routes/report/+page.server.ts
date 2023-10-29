@@ -22,7 +22,7 @@ export const actions = {
 		const photoB64 = bytesToBase64(photoBytes);
 		const text = await (
 			await fetch(
-				"http://127.0.0.1:5000/upload-image", {
+				"https://8d8a-52-124-39-58.ngrok-free.app/upload-image", {
 					method: "POST",
 					headers: {
 						"Content-Type": "application/json"
