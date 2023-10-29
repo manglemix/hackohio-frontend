@@ -20,10 +20,13 @@ export const actions = {
 				break;
 		}
 		const photoB64 = bytesToBase64(photoBytes);
-		const results = await (
+		const text = await (
 			await fetch(
-				"http://127.0.0.1:8000/upload-image", {
+				"http://127.0.0.1:5000/upload-image", {
 					method: "POST",
+					headers: {
+						"Content-Type": "application/json"
+					},
 					body: JSON.stringify({
 						photo: photoB64,
 						geolocation: data.get("geolocation"),
@@ -31,22 +34,12 @@ export const actions = {
 					})
 				}
 			)
-		).json();
+		).text();
+		console.log(text);
+		const results = JSON.parse(text);
 
 		const items: {name: string, bbox: [number, number, number, number], instructions: string, supercategory: string}[] = results["items"] ?? [];
 		const id: { [k: string]: string } = results["id"] ?? {};
-		items.push({
-			name: "plastic bottle",
-			bbox: [0.0, 0.0, 0.4, 0.4],
-			instructions: "Rinse out the bottle, remove the cap, and place it in the recycling bin. Flatten the bottle if possible to save space.",
-			supercategory: "plastic"
-		});
-		items.push({
-			name: "plastic bottle",
-			bbox: [0.5, 0.5, 1.0, 1.0],
-			instructions: "Rinse out the bottle, remove the cap, and place it in the recycling bin. Flatten the bottle if possible to save space.",
-			supercategory: "plastic"
-		});
 
 		return {
 			items,

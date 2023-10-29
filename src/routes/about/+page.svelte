@@ -23,7 +23,7 @@
         of change does not come easy, and always requires reliable evidence to make a case. This
         is where we come in!
         <br><br>
-        <strong>&emsp;&emsp;ReTrash</strong> allows us to collect data from thousands of people regarding the
+        <strong>&emsp;&emsp;DeTrash</strong> allows us to collect data from thousands of people regarding the
         locations at which littering occurred. Using AI models, we can even discern what kind of
         trash was littered, and how much! This allows us to generate a heatmap (visible
         <a href="/data" title="Data visualization page">here</a>), which anyone can refer to better

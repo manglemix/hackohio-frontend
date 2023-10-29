@@ -37,7 +37,8 @@
                 });
             }
             var heatmap = new HeatmapLayer({
-                data: heatMapData
+                data: heatMapData,
+                radius: 120
             });
             heatmap.setMap(map);
 

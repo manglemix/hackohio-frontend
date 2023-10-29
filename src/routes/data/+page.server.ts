@@ -2,7 +2,7 @@ import {
     DynamoDBClient,
     ScanCommand
 } from '@aws-sdk/client-dynamodb';
-import { AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, AWS_SESSION_TOKEN, AWS_REGION } from '$env/static/private';
+import { AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, AWS_SESSION_TOKEN, AWS_DEFAULT_REGION } from '$env/static/private';
 
 export async function load({  }) {
     const client = new DynamoDBClient({
@@ -11,7 +11,7 @@ export async function load({  }) {
             secretAccessKey: AWS_SECRET_ACCESS_KEY,
             sessionToken: AWS_SESSION_TOKEN
         },
-        region: AWS_REGION,
+        region: AWS_DEFAULT_REGION,
     });
     const cmd = new ScanCommand({
         TableName: "Markers"

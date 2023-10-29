@@ -7,7 +7,7 @@
         <div class="left-navbar">
             <a href="/">
                 <img src={logo} height=30px alt="Recycling Bin"/>
-                <strong>ReTrash</strong>
+                <strong>DeTrash</strong>
             </a>
         </div>
         <div class="right-navbar">
