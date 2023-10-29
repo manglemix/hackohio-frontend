@@ -99,6 +99,7 @@
 
             return async ({ update }) => {
                 await update();
+		        await new Promise((fulfil) => setTimeout(fulfil, 300));
                 loading = false;
             };
         }}>
@@ -117,7 +118,7 @@
 
 <style>
     .fixed {
-        position: fixed;
+        position: absolute;
         top: 4rem;
         width: min(50rem, 100% - 3rem);
     }
