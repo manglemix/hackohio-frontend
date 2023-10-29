@@ -28,18 +28,19 @@
         return "data:image/jpg;base64," + bytesToBase64(photoBytes);
     }
 
-    let taggedImg;
     let files: FileList;
+    let taggedImgContentRect: DOMRectReadOnly;
     const fadeParams = { duration: 300 };
+    let headerHeight: number;
 </script>
 
 {#if form}
-    <header transition:fade={fadeParams}>
+    <header transition:fade={fadeParams} bind:offsetHeight={headerHeight}>
         <h1>Here is what we found</h1>
         <h2>Click on a box for instructions</h2>
-    </header>
-    <main transition:fade={fadeParams}>
         <div style="margin-top: 3rem;" />
+    </header>
+    <main transition:fade={fadeParams} >
         <noscript>
             <p>You seem to have Javascript disabled. You will not be able to see instructions without it.</p>
         </noscript>
@@ -48,25 +49,23 @@
             src={"data:image/jpg;base64," + form.photo}
             width=100%
             alt="The same photo that you sent but with the trash highlighted"
-            bind:this={taggedImg}
+            bind:contentRect={taggedImgContentRect}
             on:load={() => imgLoaded = true}
             on:resize={() => imgLoaded = true}
         >
-        
-        {#if taggedImg && imgLoaded}
+
+        {#if taggedImgContentRect && imgLoaded}
             {#each form.items as item, i}
-                <!-- svelte-ignore a11y-no-static-element-interactions -->
                 <input
                     type="radio"
-                    name="bbox"
+                    name="boundingBox"
                     class="boundingBox"
                     style="
-                    --width: {(item.bbox[2] - item.bbox[0]) * taggedImg.width}px;
-                    --height: {(item.bbox[3] - item.bbox[1]) * taggedImg.height}px;
-                    --left: {item.bbox[0] * taggedImg.width + taggedImg.offsetLeft}px;
-                    --top: {item.bbox[1] * taggedImg.height + taggedImg.offsetTop}px;
+                    --width: {(item.bbox[2] - item.bbox[0]) * taggedImgContentRect.width}px;
+                    --height: {(item.bbox[3] - item.bbox[1]) * taggedImgContentRect.height}px;
+                    --left: {item.bbox[0] * taggedImgContentRect.width}px;
+                    --top: {item.bbox[1] * taggedImgContentRect.height + headerHeight}px;
                     "
-                    
                     on:click={() => selectedTrash = i}
                     on:keydown={() => selectedTrash = i}
                 />
@@ -80,7 +79,6 @@
                 <p transition:fade={fadeParams}>{form.items[selectedTrash].instructions}</p>
             </div>
         {/if}
-
     </main>
 {:else if loading}
 <div class="fixed">
@@ -89,7 +87,6 @@
     </main>
 </div>
 {:else}
-<div class="fixed">
     <header transition:fade={fadeParams}>
         <h1>Found some trash?</h1>
         <h2>Send us a photo and we'll handle the rest!</h2>
@@ -98,6 +95,7 @@
         <div style="margin-top: 4rem;" />
         <form method="POST" enctype="multipart/form-data" use:enhance={() => {
             loading = true;
+            selectedTrash = null;
 
             return async ({ update }) => {
                 await update();
@@ -115,14 +113,12 @@
             <button type="submit">Upload</button>
         </form>
     </main>
-</div>
 {/if}
 
 <style>
     .fixed {
         position: fixed;
         top: 4rem;
-        /* left: 0%; */
         width: min(50rem, 100% - 3rem);
     }
     form {
@@ -176,21 +172,19 @@
         font-weight: 1000;
     }
     .boundingBox {
-        /* width: {(item.bbox[2] - item.bbox[0]) * taggedImg.width}px;
-        height: {(item.bbox[3] - item.bbox[1]) * taggedImg.height}px; */
         width: var(--width);
         height: var(--height);
         background-color: red;
         opacity: 0.3;
-        /* left: {item.bbox[0] * taggedImg.width + taggedImg.offsetLeft}px;
-        top: {item.bbox[1] * taggedImg.height + taggedImg.offsetTop}px; */
-        left: var(--left);
-        top: var(--top);
+        left: calc(var(--left) + (100vw - min(50rem, 100vw - 3rem)) / 2);
+        top: calc(var(--top) + 3.75rem);
         position: absolute;
+        -webkit-appearance: none;
         appearance: none;
     }
     .boundingBox:checked {
         background-color: orange;
+        -webkit-appearance: none;
         appearance: none;
     }
 </style>

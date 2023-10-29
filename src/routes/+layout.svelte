@@ -83,6 +83,7 @@
         flex-direction: column;
         position: fixed;
         width: 100%;
+        z-index: 100;
     }
 
     nav .nav-content {

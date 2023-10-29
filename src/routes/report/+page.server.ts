@@ -34,13 +34,13 @@ export const actions = {
 		const id: { [k: string]: string } = results["id"] ?? {};
 		items.push({
 			name: "plastic bottle",
-			bbox: [0.2, 0.2, 0.4, 0.4],
+			bbox: [0.0, 0.0, 0.4, 0.4],
 			instructions: "Rinse out the bottle, remove the cap, and place it in the recycling bin. Flatten the bottle if possible to save space.",
 			supercategory: "plastic"
 		});
 		items.push({
 			name: "plastic bottle",
-			bbox: [0.5, 0.5, 0.7, 0.7],
+			bbox: [0.5, 0.5, 1.0, 1.0],
 			instructions: "Rinse out the bottle, remove the cap, and place it in the recycling bin. Flatten the bottle if possible to save space.",
 			supercategory: "plastic"
 		});
