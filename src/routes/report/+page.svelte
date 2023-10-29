@@ -2,6 +2,7 @@
 	import { fade } from 'svelte/transition';
 	import { enhance } from '$app/forms';
 	import { bytesToBase64 } from '$lib/base64.js';
+	import { browser } from '$app/environment';
 
 	export let form;
     let loading = false;
@@ -32,6 +33,12 @@
     let taggedImgContentRect: DOMRectReadOnly;
     const fadeParams = { duration: 300 };
     let headerHeight: number;
+    let geolocation: string;
+    if (browser && navigator?.geolocation) {
+        navigator.geolocation.getCurrentPosition((position) => {
+            geolocation = position.coords.latitude + ", " + position.coords.longitude;
+        });
+    }
 </script>
 
 {#if form}
@@ -96,6 +103,7 @@
         <form method="POST" enctype="multipart/form-data" use:enhance={() => {
             loading = true;
             selectedTrash = null;
+            geolocation = "lmao";
 
             return async ({ update }) => {
                 await update();
@@ -111,6 +119,9 @@
                 {/await}
             {/if}
             <input id="photo" name="photo" type="file" accept=".jpg" required bind:files />
+            <input type="hidden" name="geolocation" bind:value={geolocation}>
+            <label for="laws">Optionally provide a link to your local recycling laws</label>
+            <input type="url" id="laws" name="laws">
             <button type="submit">Upload</button>
         </form>
     </main>
@@ -120,7 +131,7 @@
     .fixed {
         position: absolute;
         top: 4rem;
-        width: min(50rem, 100% - 3rem);
+        width: min(50rem, 100vw - 3rem);
     }
     form {
         background-color: lightgray;

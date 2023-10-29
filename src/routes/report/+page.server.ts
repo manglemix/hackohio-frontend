@@ -20,15 +20,18 @@ export const actions = {
 				break;
 		}
 		const photoB64 = bytesToBase64(photoBytes);
-		// const results = await (
-		// 	await fetch(
-		// 		"http://127.0.0.1:8000/upload-image", {
-		// 			method: "POST",
-		// 			body: JSON.stringify({ photo: photoB64 })
-		// 		}
-		// 	)
-		// ).json();
-		const results = {};
+		const results = await (
+			await fetch(
+				"http://127.0.0.1:8000/upload-image", {
+					method: "POST",
+					body: JSON.stringify({
+						photo: photoB64,
+						geolocation: data.get("geolocation"),
+						url: data.get("laws")
+					})
+				}
+			)
+		).json();
 
 		const items: {name: string, bbox: [number, number, number, number], instructions: string, supercategory: string}[] = results["items"] ?? [];
 		const id: { [k: string]: string } = results["id"] ?? {};
