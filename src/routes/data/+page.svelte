@@ -57,7 +57,7 @@
         position: fixed;
         top: var(--top);
         width: min(50rem, 100% - 3rem);
-        bottom: 10rem;
+        bottom: 15rem;
     }
     #mapContainer form {
         display: flex;
@@ -74,12 +74,12 @@
     header {
         display: flex;
         flex-direction: column;
-        height: 100%;
+        /* height: 100%; */
     }
     main {
         display: flex;
         flex-direction: column;
-        height: 100%;
+        /* height: 100%; */
     }
     p {
         text-align: center;
