@@ -1,22 +1,35 @@
 <script lang=ts>
 	import { fade } from 'svelte/transition';
 	import { enhance } from '$app/forms';
+	import { bytesToBase64 } from '$lib/base64.js';
 
 	export let form;
     let loading = false;
     let imgLoaded = false;
     let selectedTrash: number | null = null;
 
-    // function blobToBase64Async(blob: Blob) {
-    //     var reader = new FileReader();
-    //     reader.readAsDataURL(blob); 
-    //     reader.onload = e => {
-    //         photoB64 = e.target?.result as string ?? "";                
-    //         console.log(photoB64);
-    //     }
-    // }
+    async function fileToImage(file: File) {
+        var stream = file.stream();
+        var reader = stream.getReader();
+		let photoBytes: Uint8Array = new Uint8Array();
+
+        while(true) {
+			const result = await reader.read();
+			if (result.value === undefined)
+				break;
+			let tmp = new Uint8Array(result.value.length + photoBytes.length);
+			tmp.set(photoBytes);
+			tmp.set(result.value, photoBytes.length);
+			photoBytes = tmp;
+			if (result.done)
+				break;
+		}
+
+        return "data:image/jpg;base64," + bytesToBase64(photoBytes);
+    }
 
     let taggedImg;
+    let files: FileList;
     const fadeParams = { duration: 300 };
 </script>
 
@@ -27,6 +40,9 @@
     </header>
     <main transition:fade={fadeParams}>
         <div style="margin-top: 3rem;" />
+        <noscript>
+            <p>You seem to have Javascript disabled. You will not be able to see instructions without it.</p>
+        </noscript>
         <!-- svelte-ignore a11y-img-redundant-alt -->
         <img
             src={"data:image/jpg;base64," + form.photo}
@@ -40,16 +56,17 @@
         {#if taggedImg && imgLoaded}
             {#each form.items as item, i}
                 <!-- svelte-ignore a11y-no-static-element-interactions -->
-                <div
+                <input
+                    type="radio"
+                    name="bbox"
+                    class="boundingBox"
                     style="
-                    width: {(item.bbox[2] - item.bbox[0]) * taggedImg.width}px;
-                    height: {(item.bbox[3] - item.bbox[1]) * taggedImg.height}px;
-                    background: red;
-                    opacity: 0.3;
-                    left: {item.bbox[0] * taggedImg.width + taggedImg.offsetLeft}px;
-                    top: {item.bbox[1] * taggedImg.height + taggedImg.offsetTop}px;
-                    position: absolute;
+                    --width: {(item.bbox[2] - item.bbox[0]) * taggedImg.width}px;
+                    --height: {(item.bbox[3] - item.bbox[1]) * taggedImg.height}px;
+                    --left: {item.bbox[0] * taggedImg.width + taggedImg.offsetLeft}px;
+                    --top: {item.bbox[1] * taggedImg.height + taggedImg.offsetTop}px;
                     "
+                    
                     on:click={() => selectedTrash = i}
                     on:keydown={() => selectedTrash = i}
                 />
@@ -88,7 +105,13 @@
             };
         }}>
             <label for="photo">Upload photo of trash</label>
-            <input id="photo" name="photo" type="file" accept=".jpg" required />
+            {#if files && files.length > 0}
+                {#await fileToImage(files[0]) then uri}
+                    <!-- svelte-ignore a11y-img-redundant-alt -->
+                    <img src={uri} alt="The image you just uploaded">
+                {/await}
+            {/if}
+            <input id="photo" name="photo" type="file" accept=".jpg" required bind:files />
             <button type="submit">Upload</button>
         </form>
     </main>
@@ -135,9 +158,39 @@
     .instructions {
         position: sticky;
         bottom: 0.8rem;
-        background-color: lightgray;
+        background-color: #888888cc;
         padding: 0.5rem;
         border-radius: 0.8rem;
         border: 1px solid gray;
+    }
+    .instructions p {
+        color: black;
+        text-shadow: 2px 2px 4px #444444;
+        font-size: 1.75rem;
+        font-weight: 300;
+    }
+    .instructions h3 {
+        color: black;
+        text-shadow: 2px 2px 4px #444444;
+        font-size: 2rem;
+        font-weight: 1000;
+    }
+    .boundingBox {
+        /* width: {(item.bbox[2] - item.bbox[0]) * taggedImg.width}px;
+        height: {(item.bbox[3] - item.bbox[1]) * taggedImg.height}px; */
+        width: var(--width);
+        height: var(--height);
+        background-color: red;
+        opacity: 0.3;
+        /* left: {item.bbox[0] * taggedImg.width + taggedImg.offsetLeft}px;
+        top: {item.bbox[1] * taggedImg.height + taggedImg.offsetTop}px; */
+        left: var(--left);
+        top: var(--top);
+        position: absolute;
+        appearance: none;
+    }
+    .boundingBox:checked {
+        background-color: orange;
+        appearance: none;
     }
 </style>
