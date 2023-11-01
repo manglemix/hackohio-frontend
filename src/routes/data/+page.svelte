@@ -48,10 +48,12 @@
     <h1>Want to find patterns in littering?</h1>
     <h2>We've got you covered!</h2>
 </header>
-{#if lat && lng}
+<h3 style="color: darkred; text-align: center;">
+    The backend has been deactivated for cost saving reasons. If you would like a proper demo, please contact us!
+</h3>
+<!-- {#if lat && lng}
 <main>
     <div id="mapContainer" style="--top: {100 + headerHeight}px">
-        <!-- <p>Change the type of trash that will be visible</p> -->
         <form>
             <label for="allTrash">All Trash</label>
             <input type="radio" name="trashType" id="allTrash" on:click={() => goto(`/refreshData?lat=${lat}&lng=${lng}`)} checked={supercategory==="all"}>
@@ -73,7 +75,7 @@
         <GoogleAdvancedMap lat={lat} lng={lng} markers={data.markers} supercategory={supercategory} />
     </div>
 </main>
-{/if}
+{/if} -->
 
 <style>
     h1 {

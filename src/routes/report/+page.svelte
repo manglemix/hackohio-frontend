@@ -98,6 +98,9 @@
         <h1>Found some trash?</h1>
         <h2>Send us a photo and we'll handle the rest!</h2>
     </header>
+    <h3 style="color: darkred; text-align: center;">
+        The backend has been deactivated for cost saving reasons. If you would like a proper demo, please contact us!
+    </h3>
     <main transition:fade={fadeParams}>
         <div style="margin-top: 4rem;" />
         <form method="POST" enctype="multipart/form-data" use:enhance={() => {
